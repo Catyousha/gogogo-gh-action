@@ -1,0 +1,23 @@
+image: golang:1.23.6
+
+stages:
+  - download
+  - execute
+
+compile:
+  stage: download
+  script:
+    - echo "Compiling main.go"
+    - mkdir bin
+    - go mod tidy
+    - go build -o ./bin/server main.go
+  artifacts:
+    paths:
+      - bin/
+  
+execute:
+  stage: execute
+  script:
+    - echo "Executing server"
+    - ls -l bin
+    - ./bin/server
